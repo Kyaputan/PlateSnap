@@ -6,10 +6,10 @@ import Navbar from "./components/Nav";
 
 const COLORS = {
   primary: "#B9375D", // แบรนด์/หัวข้อ/ปุ่ม
-  accent:  "#D25D5D", // hover/เน้น
+  accent: "#D25D5D", // hover/เน้น
   surface: "#E7D3D3", // เส้น/ขอบ/แผ่ว
-  muted:   "#EEEEEE", // พื้นหลังบางส่วน
-  gray:    "#737373", // เทา
+  muted: "#EEEEEE", // พื้นหลังบางส่วน
+  gray: "#737373", // เทา
 };
 
 export default function App() {
@@ -48,21 +48,16 @@ export default function App() {
               <button
                 type="submit"
                 disabled={!canSave}
-                className="mt-2 inline-flex items-center justify-center rounded-lg px-5 py-2 font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{
-                  backgroundColor: canSave ? COLORS.primary : COLORS.surface,
-                  color: "white",
-                }}
-                onMouseEnter={(e) => {
-                  if (canSave) e.currentTarget.style.backgroundColor = COLORS.accent;
-                }}
-                onMouseLeave={(e) => {
-                  if (canSave) e.currentTarget.style.backgroundColor = COLORS.primary;
-                }}
+                className="mt-2 w-fit justify-self-center inline-flex items-center justify-center
+                rounded-lg px-5 py-2 font-medium
+                transition duration-150 active:opacity-40 active:scale-95 active:animate-pulse
+                disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ backgroundColor: canSave ? COLORS.primary : COLORS.surface, color: "white" }}
               >
                 บันทึก
               </button>
             </div>
+
           </form>
         </Card>
       </main>
