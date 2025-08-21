@@ -81,3 +81,16 @@
     border-color: var(--brand);
   }
 }
+
+/* ===== Utilities สำหรับ Header ===== */
+@layer utilities{
+  /* เงานุ่มเฉพาะด้านล่าง */
+  .shadow-header{ box-shadow: 0 6px 18px rgba(185,55,93,.12); }
+
+  /* (ทางเลือก) เส้นไล่สีจาง ๆ ใต้ขอบล่าง */
+  .soft-underline::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--surface), transparent);
+  }
+}
