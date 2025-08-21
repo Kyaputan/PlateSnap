@@ -5,8 +5,8 @@ class Settings(BaseSettings):
     APP_NAME: str = "PlateFlow Backend"
     API_V1_STR: str = "/api/v1"
     DATABASE_URL: str = Field(default="sqlite:///./app.db")
-    YOLO_MODEL_PATH: str = "yolov8n.pt"  # change to your custom weights
-    OCR_ENGINE: str = "easyocr"  # or "tesseract"
+    YOLO_MODEL_PATH: str = "license.pt"  
+    OCR_ENGINE: str = "easyocr" 
     LOG_LEVEL: str = "INFO"
     CORS_ORIGINS: list[str] = ["*"]
 

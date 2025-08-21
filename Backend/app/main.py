@@ -18,9 +18,9 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
-    # DB init (sync models)
+
     Base.metadata.create_all(bind=engine)
-    # Routes
+
     app.include_router(license_router, prefix=settings.API_V1_STR)
     app.include_router(vehicles_router, prefix=settings.API_V1_STR)
 

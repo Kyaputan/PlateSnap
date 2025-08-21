@@ -15,7 +15,7 @@ async def insert_plate(plate: InsertPlate, db: Session = Depends(get_db)):
     if not lic or not prov:
         raise HTTPException(status_code=400, detail="license/province must not be empty")
 
-    v = Vehicle(license=lic, province=prov, allowed=plate.allowed)
+    v = Vehicle(license=lic, province=prov, allowed=True)
     try:
         db.add(v)
         db.commit()
