@@ -12,68 +12,76 @@ const COLORS = {
 
 // ---------- UI Building Blocks ----------
 function Navbar() {
+  // ====== ปรับสองค่านี้เพื่อย้ายเมนูตามใจ ======
+  const MENU_ALIGN = "left";   // "left" | "center" | "right"
+  const MENU_OFFSET_PX = 50;    // ตัวเลขบวก/ลบ ขยับละเอียดเป็น px
+  // ============================================
+
+  const alignClass =
+    MENU_ALIGN === "center" ? "justify-center"
+      : MENU_ALIGN === "right" ? "justify-end"
+      : "justify-start";
+
   return (
-    <header className="sticky top-0 z-10 bg-white border-b"
-            style={{ borderColor: COLORS.surface }}>
-      <div className="w-full px-3 sm:px-4 lg:px-6 py-3 flex items-center justify-between">
-        {/* Brand */}
-        <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="PlateSnap" className="h-9 w-auto" />
-          <span className="font-semibold text-lg"
-                style={{ color: COLORS.primary }}>
-            PlateSnap
-          </span>
+    <header className="sticky top-0 z-10 bg-white border-b-4 border-soft">
+      {/* Grid 3 คอลัมน์: [ซ้าย | กลาง | ขวา] */}
+      <div className="w-full grid grid-cols-[auto_1fr_auto] items-center pl-2 pr-4 py-3 gap-2">
+        {/* ซ้าย: โลโก้ + ชื่อ */}
+        <div className="flex items-center">
+          <img src="/logo.png" alt="PlateSnap" className="h-9 w-auto shrink-0" />
+          <span className="ml-2 font-semibold text-lg text-primary">PlateSnap</span>
         </div>
 
-        {/* Nav */}
-        <nav className="hidden md:flex items-center gap-6 text-sm">
-          <a
-            href="#"
-            className="
-              relative
-              text-[#737373] hover:text-[#B9375D] transition-colors
-              after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-0
-              after:bg-[#B9375D] after:transition-all hover:after:w-full
-            "
+        {/* กลาง: แทร็กสำหรับวางเมนู (ขยับได้อิสระ) */}
+        <div className={`relative flex ${alignClass} col-start-2`}>
+          <nav
+            className="relative flex items-center gap-6 text-sm"
+            style={{ left: MENU_OFFSET_PX }}
           >
-            Home
-          </a>
-          <a
-            href="#"
-            className="
-              relative
-              text-[#737373] hover:text-[#B9375D] transition-colors
-              after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-0
-              after:bg-[#B9375D] after:transition-all hover:after:w-full
-            "
-          >
-            Plate Manager
-          </a>
-        </nav>
+            <a
+              href="#"
+              className="
+                relative
+                text-[#5d5d5d] hover:text-[#B9375D] transition-colors
+                after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-0
+                after:bg-[#B9375D] after:transition-all hover:after:w-full
+              "
+            >
+              Home
+            </a>
 
-        {/* User + Login (ยังไม่ทำงาน) */}
+            <a
+              href="#"
+              className="
+                relative
+                text-[#5d5d5d] hover:text-[#B9375D] transition-colors
+                after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-0
+                after:bg-[#B9375D] after:transition-all hover:after:w-full
+              "
+            >
+              Plate Manager
+            </a>
+
+          </nav>
+        </div>
+
+        {/* ขวา: User + Login */}
         <div className="flex items-center gap-3">
           <span className="text-xs md:text-sm">
-            User : <span style={{ color: COLORS.primary }}>Manager</span>
+            User : <span className="text-primary">Manager</span>
           </span>
           <button
             type="button"
-            className="px-3 py-1 rounded-full border text-sm"
-            style={{
-              borderColor: COLORS.accent,
-              color: COLORS.accent,
-              backgroundColor: "white",
-            }}
+            className="btn-outline px-3 py-1 rounded-full border text-sm border-accent text-accent bg-white hover:bg-soft transition"
           >
             Log in
           </button>
         </div>
       </div>
-      {/* เส้นไฮไลต์บนสุดบางๆ */}
-      <div style={{ backgroundColor: COLORS.surface }} className="h-[2px] w-full" />
     </header>
   );
 }
+
 
 function PageCard({ title, children }) {
   return (
@@ -169,9 +177,6 @@ export default function App() {
           </form>
         </PageCard>
       </main>
-
-      {/* เส้นขอบล่างอ่อนๆ ตามภาพ */}
-      <div style={{ backgroundColor: COLORS.muted }} className="h-[2px] w-full" />
     </div>
   );
 }
