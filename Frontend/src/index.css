@@ -59,3 +59,38 @@
   .divider-thin{ height:2px; width:100%; background: var(--muted); }
   .divider-surface{ height:2px; width:100%; background: var(--surface); }
 }
+
+/* ถ้ายังไม่มี ให้ประกาศตัวแปรสีไว้ */
+:root{
+  --brand:#B9375D;
+  --surface:#E7D3D3;
+}
+
+/* ใช้ซ้ำทั้งแอป */
+@layer components{
+  .input{
+    /* สไตล์พื้นฐาน */
+    @apply w-full rounded-lg px-4 py-2 bg-white border-2 transition;
+    border-color: var(--surface);
+
+    /* ตัดเส้นดำ/น้ำเงินตอนโฟกัส */
+    @apply outline-none focus:outline-none focus-visible:outline-none focus:ring-0;
+  }
+  .input:focus{
+    /* เปลี่ยนสีขอบเป็น primary */
+    border-color: var(--brand);
+  }
+}
+
+/* ===== Utilities สำหรับ Header ===== */
+@layer utilities{
+  /* เงานุ่มเฉพาะด้านล่าง */
+  .shadow-header{ box-shadow: 0 6px 18px rgba(185,55,93,.12); }
+
+  /* (ทางเลือก) เส้นไล่สีจาง ๆ ใต้ขอบล่าง */
+  .soft-underline::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--surface), transparent);
+  }
+}
