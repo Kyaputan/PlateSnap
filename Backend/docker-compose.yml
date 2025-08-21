@@ -8,4 +8,3 @@ services:
     volumes:
       - ./:/app
     restart: unless-stopped
-  # Add your DB here if not using SQLite
