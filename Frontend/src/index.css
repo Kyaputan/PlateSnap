@@ -1,1 +1,49 @@
+/* โหลดยูทิลทั้งหมดของ Tailwind v4 */
 @import "tailwindcss";
+
+/* ---- Theme (แก้สีที่นี่ที่เดียว) ---- */
+:root{
+  --brand:  #B9375D; /* primary */
+  --accent: #D25D5D; /* hover/เน้น */
+  --surface:#E7D3D3; /* เส้น/ขอบอ่อน */
+  --muted:  #EEEEEE; /* เส้นคั่นบาง/พื้นหลังอ่อน */
+}
+
+/* ---- Base ---- */
+@layer base{
+  html, body, #root{ @apply h-full; }
+  body{ @apply bg-white text-gray-900; }
+}
+
+/* ---- Reusable Components (เรียกใช้ใน JSX) ---- */
+@layer components{
+  .nav-link{ color: var(--brand); }
+  .nav-link:hover{ text-decoration: underline; }
+
+  .card{
+    @apply bg-white rounded-2xl p-6 shadow-sm border;
+    border-color: var(--surface);
+  }
+
+  .input{
+    @apply w-full rounded-lg px-4 py-2 border outline-none bg-white focus:ring-2;
+    border-color: var(--surface);
+  }
+  .input:focus{ border-color: var(--accent); }
+
+  .btn{ 
+    @apply inline-flex items-center justify-center rounded-lg px-5 py-2 font-medium transition
+           disabled:opacity-50 disabled:cursor-not-allowed; 
+  }
+  .btn-primary{ background: var(--brand); color: #fff; }
+  .btn-primary:hover{ background: var(--accent); }
+
+  .btn-outline{ 
+    @apply border bg-white;
+    border-color: var(--accent); color: var(--accent);
+  }
+  .btn-outline:hover{ background: var(--accent); color:#fff; }
+
+  .divider-thin{ height:2px; width:100%; background: var(--muted); }
+  .divider-surface{ height:2px; width:100%; background: var(--surface); }
+}
