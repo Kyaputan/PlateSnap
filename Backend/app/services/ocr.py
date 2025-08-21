@@ -2,7 +2,21 @@ from typing import Tuple
 import numpy as np
 import logging
 import re
+from pythainlp.spell import correct
+import difflib
 log = logging.getLogger("app.ocr")
+
+provinces_corrector = [
+    "กรุงเทพมหานคร","กระบี่","กาญจนบุรี","กาฬสินธุ์","กำแพงเพชร","ขอนแก่น","จันทบุรี","ฉะเชิงเทรา","ชลบุรี","ชัยนาท",
+    "ชัยภูมิ","ชุมพร","เชียงราย","เชียงใหม่","ตรัง","ตราด","ตาก","นครนายก","นครปฐม","นครพนม","นครราชสีมา","นครศรีธรรมราช",
+    "นครสวรรค์","นนทบุรี","นราธิวาส","น่าน","บึงกาฬ","บุรีรัมย์","ปทุมธานี","ประจวบคีรีขันธ์","ปราจีนบุรี","ปัตตานี",
+    "พระนครศรีอยุธยา","พังงา","พัทลุง","พิจิตร","พิษณุโลก","เพชรบุรี","เพชรบูรณ์","แพร่","พะเยา","ภูเก็ต","มหาสารคาม",
+    "มุกดาหาร","แม่ฮ่องสอน","ยโสธร","ยะลา","ร้อยเอ็ด","ระนอง","ระยอง","ราชบุรี","ลพบุรี","ลำปาง","ลำพูน","เลย",
+    "ศรีสะเกษ","สกลนคร","สงขลา","สตูล","สมุทรปราการ","สมุทรสงคราม","สมุทรสาคร","สระแก้ว","สระบุรี","สิงห์บุรี",
+    "สุโขทัย","สุพรรณบุรี","สุราษฎร์ธานี","สุรินทร์","หนองคาย","หนองบัวลำภู","อ่างทอง","อุดรธานี","อุตรดิตถ์",
+    "อุทัยธานี","อุบลราชธานี","อำนาจเจริญ"
+]
+
 
 def _normalize_text(s: str) -> str:
     s = s.replace("\n", " ").replace("\r", " ")
@@ -41,9 +55,17 @@ class OCR:
         if m:
             license_txt = _normalize_text(m.group(1))
             province = _normalize_text(m.group(2))
+            province_correct = correct(province)
+            match = difflib.get_close_matches(province, provinces_corrector, n=1, cutoff=0.6)
+            if match:
+                province_correct = match[0]
         else:
             parts = text.split()
             license_txt = parts[0] if parts else ""
             province = parts[-1] if len(parts) > 1 else ""
-
-        return license_txt, province
+            province_correct = correct(province)
+            match = difflib.get_close_matches(province, provinces_corrector, n=1, cutoff=0.6)
+            if match:
+                province_correct = match[0]
+        
+        return license_txt, province_correct
