@@ -9,6 +9,18 @@
   --muted:  #EEEEEE; /* เส้นคั่นบาง/พื้นหลังอ่อน */
 }
 
+@layer utilities{
+  .text-primary{ color: var(--brand); }
+  .text-muted{ color: #666; }
+  .text-accent{ color: var(--accent); }
+
+  .border-soft{ border-color: var(--surface); }
+  .border-accent{ border-color: var(--accent); }
+
+  .bg-soft{ background: var(--surface); }
+  .bg-pagebg{ background: var(--muted); }
+}
+
 /* ---- Base ---- */
 @layer base{
   html, body, #root{ @apply h-full; }

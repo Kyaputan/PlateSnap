@@ -66,8 +66,6 @@ export default function App() {
           </form>
         </Card>
       </main>
-
-      <div style={{ backgroundColor: COLORS.muted }} className="h-[2px] w-full" />
     </div>
   );
 }
