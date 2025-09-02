@@ -4,6 +4,7 @@ import logging
 import re
 from pythainlp.spell import correct
 import difflib
+
 log = logging.getLogger("app.ocr")
 
 provinces_corrector = [
@@ -31,14 +32,26 @@ class OCR:
             try:
                 import easyocr  # type: ignore
                 self.reader = easyocr.Reader(["en", "th"], gpu=False)
-            except Exception as e:  # pragma: no cover
+            except Exception as e:
                 raise RuntimeError("Install easyocr to use this engine: pip install easyocr") from e
         elif engine == "tesseract":
             try:
                 import pytesseract  # type: ignore
                 self.reader = pytesseract
-            except Exception as e:  # pragma: no cover
+            except Exception as e:
                 raise RuntimeError("Install tesseract & pytesseract to use this engine") from e
+        elif engine == "Typhoon":
+            try:
+                from typhoon_ocr import ocr_document
+                def ocr_reder(document: str):
+                    return ocr_document(
+                        pdf_or_image_path=document,
+                        task_type="default",
+                        page_num=2
+                    )
+                self.reader = ocr_reder
+            except Exception as e:
+                raise RuntimeError("Install typhoon_ocr to use this engine: pip install typhoon_ocr") from e
         else:
             raise ValueError("Unknown OCR engine")
 

@@ -24,7 +24,7 @@ def create_app() -> FastAPI:
     app.include_router(license_router, prefix=settings.API_V1_STR)
     app.include_router(vehicles_router, prefix=settings.API_V1_STR)
 
-    @app.get("/healthz")
+    @app.get("/isok")
     def healthz():
         return {"status": "ok"}
 
